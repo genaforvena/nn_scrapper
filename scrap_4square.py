@@ -16,17 +16,14 @@ def requestWithAccessToken(request, params):
 
 venues = []
 
-delta = -0.1
+delta_x = -0.1
+delta_y = -0.1
 for i in range(200):
-	venuesJson = requestWithAccessToken("venues/search", "ll=" + str(nn_lat + delta) + "," + str(nn_lng) + "&intent=checkin&radius=10000")
-	venues = venues + venuesJson["response"]["venues"] 
-	delta = delta + 0.01
-
-delta = -0.1
-for i in range(200):
-	venuesJson = requestWithAccessToken("venues/search", "ll=" + str(nn_lat ) + "," + str(nn_lng + delta) + "&intent=checkin&radius=10000")
-	venues = venues + venuesJson["response"]["venues"] 
-	delta = delta + 0.01
+	for j in range(200):
+		venuesJson = requestWithAccessToken("venues/search", "ll=" + str(nn_lat + delta_x) + "," + str(nn_lng + delta_y) + "&intent=checkin&radius=10000")
+		venues = venues + venuesJson["response"]["venues"] 
+		delta_y = delta_y + 0.01
+	delta_x = delta_x + 0.01
 
 with open("venues.json", "w+") as out:
 	json.dump(venues, out)

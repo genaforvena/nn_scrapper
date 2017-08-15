@@ -5,6 +5,7 @@ from operator import attrgetter
 
 nn_lat = 56.296504
 nn_lng = 43.936059
+apikey = "AIzaSyAEHGhDzMntd_QXMYR_ZbrOSq7iHMW3d94"
 
 with open('venues.json', 'r') as f:
     data = json.load(f)
@@ -20,7 +21,7 @@ print(sortedVenues[:100])
 gmap = gmplot.GoogleMapPlotter(nn_lat, nn_lng, 13)
 
 for venue in sortedVenues:
-    gmap.circle(venue.lat, venue.lng, venue.checkins * 0.005)
+    gmap.circle(venue.lat, venue.lng, radius = venue.checkins * 0.005, color = "#660066")
 
 gmap.draw("map.html")
 
@@ -41,5 +42,5 @@ def replace(file_path, pattern, subst):
     #Move new file
     move(abs_path, file_path)
 
-# replace("map.html", '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false"></script>', '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false&key=' + apikey + '"></script>')
+replace("map.html", '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false"></script>', '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false&key=' + apikey + '"></script>')
 
